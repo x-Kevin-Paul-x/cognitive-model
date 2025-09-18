@@ -20,7 +20,7 @@ def load_assets(base_path):
     arm_start_orientation = p.getQuaternionFromEuler([0, 0, 0])
     robot_id = p.loadURDF(os.path.join(base_path, "arm.urdf"), arm_start_pos, arm_start_orientation, useFixedBase=1)
 
-    object_start_pos = [0.4, 0.2, 0.025] # Moved the object a bit
+    object_start_pos = [0.4, 0.2, 0.025]
     object_id = p.loadURDF("cube.urdf", object_start_pos, globalScaling=0.05)
 
     return robot_id, object_id
@@ -115,6 +115,7 @@ def main():
     """Main function to run the pick-and-place simulation."""
     client = setup_simulation()
 
+    # Clean up old screenshots before starting
     if not os.path.exists("screenshots"):
         os.makedirs("screenshots")
 
@@ -131,12 +132,14 @@ def main():
         set_gripper(robot_id, open_gripper=True)
         obj_pos, obj_orn = p.getBasePositionAndOrientation(object_id)
         above_obj_pos = [obj_pos[0], obj_pos[1], obj_pos[2] + 0.2]
-        move_to(robot_id, end_effector_index, above_obj_pos)
-        capture_screenshot("screenshots/1_before_pick_new.png")
 
+        # 1. Approach
+        move_to(robot_id, end_effector_index, above_obj_pos)
+        capture_screenshot("screenshots/1_approach.png")
+
+        # 2. Grasp
         move_to(robot_id, end_effector_index, [obj_pos[0], obj_pos[1], obj_pos[2] + 0.05])
         set_gripper(robot_id, open_gripper=False)
-
         constraint_id = p.createConstraint(
             parentBodyUniqueId=robot_id,
             parentLinkIndex=end_effector_index,
@@ -147,19 +150,22 @@ def main():
             parentFramePosition=[0, 0, 0.1],
             childFramePosition=[0, 0, 0]
         )
-        capture_screenshot("screenshots/2_during_pick_new.png")
+        capture_screenshot("screenshots/2_grasp.png")
 
+        # 3. Lift
         move_to(robot_id, end_effector_index, above_obj_pos)
+        capture_screenshot("screenshots/3_lift.png")
+
+        # 4. Move to a new target location and release
         target_pos = [0.0, 0.5, 0.2]
         move_to(robot_id, end_effector_index, target_pos)
-
         p.removeConstraint(constraint_id)
         set_gripper(robot_id, open_gripper=True)
         for _ in range(100):
             p.stepSimulation()
             time.sleep(1./240.)
-        capture_screenshot("screenshots/3_after_place_new.png")
 
+        # 5. Retract arm
         home_pos = [0.2, 0, 0.5]
         move_to(robot_id, end_effector_index, home_pos)
 

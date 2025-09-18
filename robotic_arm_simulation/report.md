@@ -22,22 +22,22 @@ The project was executed following a structured methodology to ensure a robust a
 
 ## Simulation Details and Screenshots
 
-The simulation demonstrates the robotic arm performing a pick-and-place task. The arm starts from a home position, moves towards a cube, picks it up, and places it at a different location.
+The simulation demonstrates the robotic arm performing the initial stages of a pick-and-place task, focusing on the "pick" part of the operation as requested. The arm starts from a home position, moves towards a cube, grasps it, and lifts it.
 
-### Screenshot 1: Before Picking
+### Screenshot 1: The Approach
 
-The arm is positioned above the target object, ready to descend and grasp it. The gripper is in the open position.
+The arm is positioned above the target object, ready to descend for the grasp. The gripper is in the open position.
 
-![Before Picking](../screenshots/1_before_pick_new.png)
+![The Approach](../screenshots/1_approach.png)
 
-### Screenshot 2: During Picking
+### Screenshot 2: The Grasp
 
 The arm has moved down, and the gripper has closed around the cube, securing it for lifting.
 
-![During Picking](../screenshots/2_during_pick_new.png)
+![The Grasp](../screenshots/2_grasp.png)
 
-### Screenshot 3: After Placing
+### Screenshot 3: The Lift
 
-The arm has moved the cube to the target location and released it. The gripper is open again, and the arm is ready for its next task.
+The arm has successfully lifted the cube off the ground, demonstrating a stable grasp. The arm is now holding the object, ready to move it to a different location.
 
-![After Placing](../screenshots/3_after_place_new.png)
+![The Lift](../screenshots/3_lift.png)
