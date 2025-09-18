@@ -1,5 +1,10 @@
 # Project: Sim-to-Real Pick-and-Place with a 6-DOF Robotic Arm
 
+## Team Members
+
+Amarnath Veera Sekaran - 22BAI1434
+Kevin Paul - 22BAI1445
+
 ## Abstract
 
 This project demonstrates a simulated pick-and-place task using a custom-designed 6-DOF (Degrees of Freedom) robotic arm. The entire workflow, from robot design to task execution, is conducted within a simulated environment powered by the PyBullet physics engine. The robot, defined in a URDF file, is controlled via Python scripting to interact with its environment. The core of the project is a pick-and-place sequence where the arm successfully identifies, grasps, lifts, and relocates an object. The simulation is visually documented with screenshots at key stages of the operation. This work serves as a foundational example of robotic simulation, which is crucial for developing and testing robotic control algorithms before deployment on physical hardware, thereby reducing costs and development time.
